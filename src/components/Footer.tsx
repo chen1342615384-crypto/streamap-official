@@ -1,3 +1,5 @@
+import { asset } from "../lib/asset";
+
 const columns = [
   {
     title: "News & events",
@@ -30,7 +32,7 @@ export function Footer() {
       <div className="container-1440 py-11">
         <div className="flex flex-wrap gap-x-6 gap-y-10">
           <div className="w-[205px] shrink-0 pt-2">
-            <img src="/images/assets/jxfx8.png" alt="streamap" className="h-[29px] w-[120px] object-contain object-left" />
+            <img src={asset("images/assets/jxfx8.png")} alt="streamap" className="h-[29px] w-[120px] object-contain object-left" />
             <div className="mt-7 h-px w-[120px] bg-[#e1e3e6]" />
             <ul className="mt-7 flex items-center gap-2.5 text-[#474c53]">
               {["f", "in", "x", "yt", "ig"].map((s) => (

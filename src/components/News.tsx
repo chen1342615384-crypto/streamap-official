@@ -1,3 +1,5 @@
+import { asset } from "../lib/asset";
+
 /** Frame 1 · UhrtR — 1200 内容宽：左 763 + gap24 + 右 413 */
 export function News() {
   return (
@@ -25,7 +27,7 @@ export function News() {
           <div className="grid grid-cols-[763fr_413fr] gap-6 max-lg:grid-cols-1">
             <article className="relative h-[769px] overflow-hidden rounded-xl max-lg:h-[480px]">
               <img
-                src="/images/assets/U6JFTU.png"
+                src={asset("images/assets/U6JFTU.png")}
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover"
                 draggable={false}
@@ -45,7 +47,7 @@ export function News() {
             <div className="flex h-[769px] flex-col gap-6 max-lg:h-auto">
               <article className="relative h-[385px] overflow-hidden rounded-xl max-lg:h-[320px]">
                 <img
-                  src="/images/assets/J6GsK.png"
+                  src={asset("images/assets/J6GsK.png")}
                   alt=""
                   className="absolute inset-0 h-full w-full object-cover"
                   draggable={false}
@@ -61,7 +63,7 @@ export function News() {
 
               <article className="relative min-h-0 flex-1 overflow-hidden rounded-xl max-lg:h-[320px]">
                 <img
-                  src="/images/assets/U1gCBP.png"
+                  src={asset("images/assets/U1gCBP.png")}
                   alt=""
                   className="absolute inset-0 h-full w-full object-cover object-[center_20%]"
                   draggable={false}

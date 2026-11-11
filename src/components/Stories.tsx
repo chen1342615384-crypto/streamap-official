@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { asset } from "../lib/asset";
 
 const CARD_W = 234;
 const CARD_H = 262;
@@ -7,11 +8,11 @@ const SHIFT = Math.round(CARD_W * (SCALE - 1)); // 117
 const AUTO_MS = 3000;
 
 const stories = [
-  { id: "sanitation", title: "Sanitation", caption: "Sanitation", img: "/images/assets/idT4h.png" },
-  { id: "road", title: "Road & Pavement", caption: "Road & Pavement", img: "/images/assets/XBwUH.png" },
-  { id: "worksite", title: "Work Site", caption: "Work Site", img: "/images/assets/PzT4e.png" },
-  { id: "roadside", title: "Roadside Facility", caption: "Roadside Facility", img: "/images/assets/BtbM3.png" },
-  { id: "urban", title: "Urban Environment", caption: "Urban Environment", img: "/images/assets/KiNnI.png" },
+  { id: "sanitation", title: "Sanitation", caption: "Sanitation", img: asset("images/assets/idT4h.png") },
+  { id: "road", title: "Road & Pavement", caption: "Road & Pavement", img: asset("images/assets/XBwUH.png") },
+  { id: "worksite", title: "Work Site", caption: "Work Site", img: asset("images/assets/PzT4e.png") },
+  { id: "roadside", title: "Roadside Facility", caption: "Roadside Facility", img: asset("images/assets/BtbM3.png") },
+  { id: "urban", title: "Urban Environment", caption: "Urban Environment", img: asset("images/assets/KiNnI.png") },
 ] as const;
 
 /** Frame 1 · bzVWX — Trimble-style scale carousel, 3s autoplay */

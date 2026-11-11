@@ -1,18 +1,20 @@
+import { asset } from "../lib/asset";
+
 const smallCards = [
   {
     title: "Connected data for complete clarity",
     desc: "One open environment for every team and stage. Decide with the full picture.",
-    img: "/images/assets/Q7CShk.png",
+    img: asset("images/assets/Q7CShk.png"),
   },
   {
     title: "Ground insight for built-in resilience",
     desc: "Ground conditions are shifting. Model it before you build on it.",
-    img: "/images/assets/KU47u.png",
+    img: asset("images/assets/KU47u.png"),
   },
   {
     title: "Continuous insight for better asset performance",
     desc: "Monitor performance, anticipate issues, and optimize assets over time.",
-    img: "/images/assets/ySZQ9.png",
+    img: asset("images/assets/ySZQ9.png"),
   },
 ] as const;
 
@@ -49,7 +51,7 @@ export function Software() {
                 </a>
               </div>
               <div className="relative min-h-[280px] flex-1 overflow-hidden rounded-r-xl max-lg:rounded-none">
-                <img src="/images/assets/Rgzto.png" alt="" className="absolute inset-0 h-full w-full object-cover object-left" draggable={false} />
+                <img src={asset("images/assets/Rgzto.png")} alt="" className="absolute inset-0 h-full w-full object-cover object-left" draggable={false} />
               </div>
             </article>
           </li>

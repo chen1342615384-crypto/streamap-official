@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState } from "react";
+import { asset } from "../lib/asset";
 
 type MegaLink = { label: string; href: string; desc?: string };
 type MegaColumn = { title: string; links: MegaLink[] };
@@ -249,7 +250,7 @@ export function Nav() {
           }`}
         >
           <a href="#top" className="block h-[29px] w-[120px] shrink-0" onClick={() => setOpenId(null)}>
-            <img src="/images/assets/jxfx8.png" alt="streamap" className="h-full w-full object-contain object-left" />
+            <img src={asset("images/assets/jxfx8.png")} alt="streamap" className="h-full w-full object-contain object-left" />
           </a>
 
           <nav className="hidden min-w-0 flex-1 items-center lg:flex" aria-label="Primary">
