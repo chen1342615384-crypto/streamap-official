@@ -1,0 +1,23 @@
+# GitLab Pages：构建后别人可通过 Pages 地址在线访问
+image: node:20-alpine
+
+stages:
+  - deploy
+
+pages:
+  stage: deploy
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+  script:
+    - npm ci
+    - npm run build
+    # GitLab Pages 要求产物目录名为 public
+    - rm -rf public
+    - mv dist public
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

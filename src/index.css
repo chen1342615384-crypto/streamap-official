@@ -1,0 +1,223 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #111213;
+  --ink-soft: #1c1917;
+  --muted: #474c53;
+  --line: #e1e3e6;
+  --surface: #f7f8f9;
+  --footer: #fbfcfd;
+  --accent: #fbad26;
+  --soft: #ced1d5;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    color: var(--ink);
+    background: #fff;
+    overflow-x: hidden;
+    font-family: "Inter", "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+  }
+}
+
+.container-1440 {
+  width: min(1440px, 100%);
+  margin-inline: auto;
+  padding-inline: 120px;
+}
+
+@media (max-width: 1100px) {
+  .container-1440 {
+    padding-inline: 48px;
+  }
+}
+
+@media (max-width: 720px) {
+  .container-1440 {
+    padding-inline: 20px;
+  }
+}
+
+/* Trimble-style industry cards: fixed size + scale-150, origin bottom-left */
+.story-carousel__item {
+  transition: transform 450ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.story-card {
+  transform-origin: bottom left;
+  transition:
+    transform 450ms cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 450ms cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 450ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.story-card:not(.is-active) {
+  opacity: 0.7;
+}
+
+.story-card.is-active {
+  z-index: 2;
+  transform: scale(1.5);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.story-card__img {
+  transition: filter 300ms ease;
+}
+
+.story-card__img.is-muted {
+  filter: grayscale(1);
+}
+
+.story-card__img.is-color {
+  filter: none;
+}
+
+.story-card__caption {
+  margin-top: 30px;
+  height: 1.4em;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 450ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.story-card__caption.is-visible {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-carousel__item,
+  .story-card,
+  .story-card__img,
+  .story-card__caption {
+    transition: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .story-carousel__item {
+    transform: none !important;
+  }
+
+  .story-card {
+    width: 100% !important;
+    height: 220px !important;
+    transform: none !important;
+  }
+
+  .story-card__caption {
+    width: 100% !important;
+    opacity: 1;
+  }
+}
+
+.feature-tile {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.feature-tile:hover {
+  transform: translateY(-3px);
+}
+
+/* Streamax city-swiper (cn.streamax.com index-EDVZOPQl.css) */
+.city-swiper-container {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  z-index: 10;
+  width: 300px;
+  height: 140px;
+  transform: translateX(-50%);
+}
+
+.city-swiper {
+  width: 100%;
+  height: 100%;
+  padding: 0 10px;
+}
+
+.city-card {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  box-sizing: border-box;
+  height: 40px;
+  padding: 7px 20px;
+  border-radius: 6px;
+  background: #fff;
+  color: #333;
+  font-weight: 500;
+  cursor: pointer;
+  transform: scale(0.7);
+  transform-origin: center top;
+  transition: all 0.3s ease;
+}
+
+.swiper-slide-prev .city-card,
+.swiper-slide-next .city-card {
+  transform: scale(0.9);
+  box-shadow: 0 0 10px #0003;
+}
+
+.swiper-slide-next + div .city-card {
+  transform: scale(0.8);
+  box-shadow: 0 0 10px #0003;
+}
+
+.swiper-slide-active .city-card {
+  transform: scale(1);
+  box-shadow: 0 0 10px #0003;
+}
+
+.city-card.selected {
+  background: #9ac026;
+  color: #fff;
+  transform: scale(1);
+}
+
+.city-tag-text {
+  font-size: 14px;
+}
+
+.city-tag-img {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 25px;
+  margin-right: 10px;
+}
+
+.city-tag-img img {
+  width: 100%;
+}
+
+.city-tag-icon {
+  position: absolute;
+  top: 45%;
+  right: 20px;
+  width: 20px;
+  transform: translateY(-50%);
+}
+
+.city-tag-icon img {
+  width: 100%;
+}
+
+/* Streamax-style hero video cover */
+.hero-video {
+  width: 100%;
+  height: 100%;
+}
+
+.hero-video video {
+  pointer-events: none;
+}

@@ -1,0 +1,9 @@
+node_modules
+dist
+.DS_Store
+*.local
+.vite
+tmp-*
+vendor/streamax-globe/*.js
+vendor/streamax-globe/*.css
+!vendor/streamax-globe/.gitkeep
