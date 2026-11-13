@@ -221,3 +221,80 @@
 .hero-video video {
   pointer-events: none;
 }
+
+/* Solutions asset marquee — two independent seamless rows */
+.asset-marquee {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+
+.asset-marquee__row {
+  overflow: hidden;
+  width: 100%;
+}
+
+.asset-marquee__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation-duration: var(--marquee-duration, 40s);
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.asset-marquee__track--left {
+  animation-name: asset-marquee-left;
+}
+
+.asset-marquee__track--right {
+  animation-name: asset-marquee-right;
+}
+
+.asset-marquee__cycle {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 20px;
+  padding-right: 20px;
+}
+
+.asset-marquee__item {
+  flex: 0 0 auto;
+  width: min(316px, 42vw);
+  aspect-ratio: 316 / 178;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #f7f8f9;
+  padding: 0;
+  border: 0;
+  cursor: zoom-in;
+}
+
+.asset-marquee__item:focus-visible {
+  outline: 2px solid #156b54;
+  outline-offset: 2px;
+}
+
+@keyframes asset-marquee-left {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(calc(var(--marquee-distance, 0px) * -1), 0, 0);
+  }
+}
+
+@keyframes asset-marquee-right {
+  from {
+    transform: translate3d(calc(var(--marquee-distance, 0px) * -1), 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .asset-marquee__track--left,
+  .asset-marquee__track--right {
+    animation: none;
+  }
+}

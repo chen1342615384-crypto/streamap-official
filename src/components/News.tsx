@@ -3,20 +3,20 @@ import { asset } from "../lib/asset";
 /** Frame 1 · UhrtR — 1200 内容宽：左 763 + gap24 + 右 413 */
 export function News() {
   return (
-    <section id="support" className="w-full bg-black py-[72px]">
+    <section id="support" className="w-full bg-[#f7f8f9] py-[72px]">
       <div className="container-1440">
         <div className="mx-auto w-full max-w-[1200px]">
           <div className="mb-[72px] flex items-start justify-between gap-12 max-md:mb-10 max-md:flex-col max-md:gap-6">
-            <h2 className="max-w-[610px] shrink-0 text-[48px] font-semibold leading-[1.08] tracking-[-1.44px] text-white max-md:text-[32px]">
+            <h2 className="max-w-[610px] shrink-0 text-[48px] font-semibold leading-[1.08] tracking-[-1.44px] text-[#111213] max-md:text-[32px]">
               The latest news and perspectives.
             </h2>
             <div className="w-full max-w-[462px] pt-2.5">
-              <p className="text-[18px] leading-[1.44] tracking-[-0.36px] text-white">
+              <p className="text-[18px] leading-[1.44] tracking-[-0.36px] text-[#111213]">
                 Ideas, insights and updates from streamap and across the infrastructure community.
               </p>
               <a
                 href="#subscribe"
-                className="mt-5 inline-flex items-center gap-1 text-[16px] font-medium text-white hover:opacity-80"
+                className="mt-5 inline-flex items-center gap-1 text-[16px] font-medium text-[#111213] hover:opacity-70"
               >
                 Subscribe for updates
                 <span aria-hidden>»</span>

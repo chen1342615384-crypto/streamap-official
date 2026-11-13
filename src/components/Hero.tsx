@@ -1,10 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-
-/** Same scheme as cn.streamax.com banner: native <video src="…mp4"> + poster */
-const HERO_VIDEO =
-  "http://cn.streamax.com/upload/video/2026/01/07/45cb7686-7c44-4be5-9f84-7b9801b59f2b.mp4";
-const HERO_POSTER =
-  "http://cn.streamax.com/upload/image/2026/03/18/fc67076f-2260-408e-826a-6687131f34ee.jpg";
+import { HERO_POSTER, HERO_VIDEO } from "../data/media";
 
 /** Frame 1 · W7CL4A — full-viewport hero, Streamax-style MP4 bg */
 export function Hero() {

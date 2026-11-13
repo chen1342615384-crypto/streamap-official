@@ -1,188 +1,81 @@
 import { useEffect, useId, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { asset } from "../lib/asset";
+import { solutionPath } from "../data/solutions";
 
-type MegaLink = { label: string; href: string; desc?: string };
+type MegaLink = { label: string; href?: string; to?: string };
 type MegaColumn = { title: string; links: MegaLink[] };
 type MegaPanel = {
   id: string;
   label: string;
   columns: MegaColumn[];
-  promo?: { eyebrow: string; title: string; href: string; links?: MegaLink[] };
 };
 
 const menus: MegaPanel[] = [
+  {
+    id: "solutions",
+    label: "Solutions",
+    columns: [
+      {
+        title: "Inspection",
+        links: [
+          { label: "Road & Pavement", to: solutionPath("road-pavement") },
+          { label: "Roadside Facility", to: solutionPath("roadside-facility") },
+          { label: "City & Environment", to: solutionPath("city-environment") },
+          { label: "Work Site Safety", to: solutionPath("work-site-safety") },
+        ],
+      },
+      {
+        title: "Management",
+        links: [
+          {
+            label: "Infrastructure Asset Management",
+            to: solutionPath("infrastructure-asset-management"),
+          },
+        ],
+      },
+    ],
+  },
   {
     id: "products",
     label: "Products",
     columns: [
       {
-        title: "Featured products",
+        title: "Devices",
         links: [
-          { label: "SeekRight Road", href: "#products" },
-          { label: "Pavement AI", href: "#products" },
-          { label: "Asset Inventory", href: "#products" },
-          { label: "Night Mode Inspection", href: "#products" },
-          { label: "Chainage Mapping", href: "#products" },
-          { label: "Incident Management", href: "#products" },
-          { label: "All products", href: "#products" },
+          { label: "P4 Set", href: "#products" },
+          { label: "C40P Set", href: "#products" },
+          { label: "P2 Set", href: "#products" },
         ],
       },
       {
-        title: "Expand what you can do",
+        title: "Platforms",
         links: [
-          {
-            label: "Talk to an expert",
-            href: "#support",
-            desc: "Get a demo tailored to your highway network.",
-          },
-          {
-            label: "Find a local partner",
-            href: "#company",
-            desc: "Work with certified partners in your region.",
-          },
-          {
-            label: "Developer resources",
-            href: "#support",
-            desc: "APIs and integration guides for ERP systems.",
-          },
-          {
-            label: "Training & onboarding",
-            href: "#support",
-            desc: "Help your teams adopt AI inspection faster.",
-          },
+          { label: "Pixel Platform", href: "#products" },
+          { label: "Asset Management Platform", href: "#products" },
         ],
       },
     ],
-    promo: {
-      eyebrow: "Product highlight",
-      title: "Precise pavement distress detection & intelligent road maintenance",
-      href: "#industry-solutions",
-      links: [
-        { label: "Explore industry solutions", href: "#industry-solutions" },
-        { label: "View user stories", href: "#industry-solutions" },
-      ],
-    },
-  },
-  {
-    id: "industry",
-    label: "Industry solutions",
-    columns: [
-      {
-        title: "By industry",
-        links: [
-          { label: "Sanitation", href: "#industry-solutions" },
-          { label: "Road & Pavement", href: "#industry-solutions" },
-          { label: "Work Site", href: "#industry-solutions" },
-          { label: "Roadside Facility", href: "#industry-solutions" },
-          { label: "Urban Environment", href: "#industry-solutions" },
-        ],
-      },
-      {
-        title: "Outcomes",
-        links: [
-          {
-            label: "Reduce risk",
-            href: "#company",
-            desc: "Detect defects before they become liabilities.",
-          },
-          {
-            label: "Increase efficiency",
-            href: "#company",
-            desc: "Survey more kilometers with the same team.",
-          },
-          {
-            label: "Transform operations",
-            href: "#company",
-            desc: "Connect inspection data to maintenance workflows.",
-          },
-        ],
-      },
-    ],
-    promo: {
-      eyebrow: "Global presence",
-      title: "Deepening global presence, building a full-scope smart road service network",
-      href: "#company",
-      links: [{ label: "See where we operate", href: "#company" }],
-    },
-  },
-  {
-    id: "support",
-    label: "Support",
-    columns: [
-      {
-        title: "Help center",
-        links: [
-          { label: "Documentation", href: "#support" },
-          { label: "Training", href: "#support" },
-          { label: "Community", href: "#support" },
-          { label: "Status & updates", href: "#support" },
-        ],
-      },
-      {
-        title: "Contact",
-        links: [
-          {
-            label: "Contact sales",
-            href: "#support",
-            desc: "Talk through deployment and pricing.",
-          },
-          {
-            label: "Technical support",
-            href: "#support",
-            desc: "Get help from our product specialists.",
-          },
-          {
-            label: "Subscribe for updates",
-            href: "#support",
-            desc: "News and product releases in your inbox.",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: "company",
-    label: "Company",
-    columns: [
-      {
-        title: "About Streamap",
-        links: [
-          { label: "About us", href: "#company" },
-          { label: "Careers", href: "#company" },
-          { label: "News", href: "#support" },
-          { label: "Partners", href: "#company" },
-        ],
-      },
-      {
-        title: "Offices",
-        links: [
-          { label: "深圳公司", href: "#company" },
-          { label: "日本子公司", href: "#company" },
-          { label: "美国子公司", href: "#company" },
-          { label: "新加坡子公司", href: "#company" },
-        ],
-      },
-    ],
-    promo: {
-      eyebrow: "Company",
-      title: "Infrastructure depends on the people who get it right.",
-      href: "#company",
-      links: [{ label: "Learn about Streamap", href: "#company" }],
-    },
   },
 ];
 
-function Chevron({ open = false, color = "#111213" }: { open?: boolean; color?: string }) {
+function Chevron({ open = false, color = "currentColor" }: { open?: boolean; color?: string }) {
   return (
     <svg
-      width="16"
-      height="16"
+      width="14"
+      height="14"
       viewBox="0 0 16 16"
       fill="none"
       aria-hidden
       className={`transition-transform duration-200 ${open ? "rotate-180" : ""}`}
     >
-      <path d="M4.16 6.16L7.99 10.33L11.83 6.16" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path
+        d="M4.16 6.16L7.99 10.33L11.83 6.16"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }
@@ -192,13 +85,21 @@ export function Nav() {
   const [openId, setOpenId] = useState<string | null>(null);
   const rootRef = useRef<HTMLElement>(null);
   const panelId = useId();
+  const location = useLocation();
+
+  const solid = scrolled || Boolean(openId);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    setOpenId(null);
+    setScrolled(window.scrollY > 24);
+  }, [location.pathname]);
 
   useEffect(() => {
     if (!openId) return;
@@ -226,14 +127,16 @@ export function Nav() {
   }, [openId]);
 
   const active = menus.find((m) => m.id === openId) ?? null;
+  const toggle = (id: string) => setOpenId((cur) => (cur === id ? null : id));
 
-  const toggle = (id: string) => {
-    setOpenId((cur) => (cur === id ? null : id));
-  };
+  // First screen: transparent over hero video; after scroll / open menu: solid white
+  const overHero = !solid;
+  const textClass = overHero ? "text-white" : "text-[#111213]";
+  const hoverBg = overHero ? "hover:bg-white/10" : "hover:bg-black/[0.04]";
+  const openBg = overHero ? "bg-white/15" : "bg-black/[0.06]";
 
   return (
     <header ref={rootRef} className="pointer-events-none fixed inset-x-0 top-0 z-50">
-      {/* dim backdrop when mega menu open — Bentley style */}
       <div
         className={`pointer-events-none absolute inset-x-0 top-0 h-screen bg-black/35 transition-opacity duration-300 ${
           openId ? "opacity-100" : "opacity-0"
@@ -241,19 +144,37 @@ export function Nav() {
         aria-hidden
       />
 
-      <div className="pointer-events-auto relative mx-auto w-full max-w-[1920px] px-[39.5px] pt-[56px] max-md:pt-4">
-        <div
-          className={`relative mx-auto flex h-[60px] w-full max-w-[1841px] items-center gap-9 rounded-[12px] bg-white px-8 ${
-            scrolled || openId
-              ? "shadow-[0_2px_40px_rgba(0,0,0,0.04),0_1px_5px_rgba(0,0,0,0.08)]"
-              : "shadow-[0_0_2px_rgba(0,0,0,0.12)]"
-          }`}
-        >
-          <a href="#top" className="block h-[29px] w-[120px] shrink-0" onClick={() => setOpenId(null)}>
-            <img src={asset("images/assets/jxfx8.png")} alt="streamap" className="h-full w-full object-contain object-left" />
-          </a>
+      <div
+        className={`pointer-events-auto relative w-full transition-[background-color,box-shadow,backdrop-filter] duration-300 ${
+          solid
+            ? "bg-white shadow-[0_1px_0_rgba(0,0,0,0.06),0_8px_24px_rgba(0,0,0,0.06)]"
+            : "bg-transparent"
+        }`}
+      >
+        <div className="mx-auto flex h-[72px] w-full max-w-[1440px] items-center gap-8 px-[clamp(20px,6vw,120px)]">
+          <Link
+            to="/"
+            className="block h-[28px] w-[120px] shrink-0"
+            onClick={() => setOpenId(null)}
+          >
+            <img
+              src={asset("images/assets/jxfx8.png")}
+              alt="streamap"
+              className={`h-full w-full object-contain object-left transition-[filter] duration-300 ${
+                overHero ? "brightness-0 invert" : ""
+              }`}
+            />
+          </Link>
 
-          <nav className="hidden min-w-0 flex-1 items-center lg:flex" aria-label="Primary">
+          <nav className={`hidden min-w-0 flex-1 items-center gap-1 lg:flex ${textClass}`} aria-label="Primary">
+            <Link
+              to="/"
+              onClick={() => setOpenId(null)}
+              className={`inline-flex h-11 items-center rounded px-4 text-[15px] font-medium tracking-[-0.3px] transition-colors ${hoverBg}`}
+            >
+              Home
+            </Link>
+
             {menus.map((item) => {
               const isOpen = openId === item.id;
               return (
@@ -263,139 +184,101 @@ export function Nav() {
                   aria-expanded={isOpen}
                   aria-controls={panelId}
                   onClick={() => toggle(item.id)}
-                  className="inline-flex h-[60px] items-center px-1"
+                  className={`inline-flex h-11 items-center gap-1 rounded px-4 text-[15px] font-medium tracking-[-0.3px] transition-colors ${
+                    isOpen ? openBg : hoverBg
+                  }`}
                 >
-                  <span
-                    className={`inline-flex h-11 items-center gap-1 rounded px-[25px] text-[15px] font-medium tracking-[-0.3px] text-[#111213] transition-colors ${
-                      isOpen ? "bg-black/[0.06]" : "hover:bg-black/[0.03]"
-                    }`}
-                  >
-                    {item.label}
-                    <Chevron open={isOpen} />
-                  </span>
+                  {item.label}
+                  <Chevron open={isOpen} />
                 </button>
               );
             })}
+
+            <a
+              href="#about"
+              onClick={() => setOpenId(null)}
+              className={`inline-flex h-11 items-center rounded px-4 text-[15px] font-medium tracking-[-0.3px] transition-colors ${hoverBg}`}
+            >
+              About
+            </a>
           </nav>
 
-          <div className="ml-auto flex items-center gap-1 text-[14px] tracking-[-0.14px] text-[#111213]">
-            <a href="#signin" className="inline-flex h-11 items-center gap-1.5 rounded px-2.5 hover:bg-black/[0.03]">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                <path
-                  d="M7 7.5a2.75 2.75 0 1 0 0-5.5 2.75 2.75 0 0 0 0 5.5Zm0 1.25c-2.4 0-4.5 1.2-4.5 2.75V12.5h9v-.999c0-1.55-2.1-2.75-4.5-2.75Z"
-                  fill="#111213"
-                />
-              </svg>
-              Sign In
-            </a>
-            <button type="button" className="inline-flex h-11 items-center gap-1 rounded px-2.5 hover:bg-black/[0.03]">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-                <circle cx="8" cy="8" r="6.5" stroke="#111213" strokeWidth="1.2" />
-                <path
-                  d="M1.5 8h13M8 1.5c2 2.2 3 4.3 3 6.5s-1 4.3-3 6.5c-2-2.2-3-4.3-3-6.5s1-4.3 3-6.5Z"
-                  stroke="#111213"
-                  strokeWidth="1.2"
-                />
-              </svg>
-              ENGLISH
-              <Chevron color="#808791" />
-            </button>
+          <div className={`ml-auto flex items-center gap-2 ${textClass}`}>
             <button
               type="button"
-              className="inline-flex h-11 items-center gap-1 rounded px-2.5 hover:bg-black/[0.03] max-md:hidden"
+              aria-label="Language"
+              className={`inline-flex h-11 items-center gap-1.5 rounded px-3 text-[14px] transition-colors ${hoverBg}`}
             >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+              <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden>
+                <circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.2" />
                 <path
-                  d="M8 14s4.5-3.4 4.5-7A4.5 4.5 0 0 0 8 2.5 4.5 4.5 0 0 0 3.5 7c0 3.6 4.5 7 4.5 7Z"
-                  stroke="#111213"
+                  d="M1.5 8h13M8 1.5c2 2.2 3 4.3 3 6.5s-1 4.3-3 6.5c-2-2.2-3-4.3-3-6.5s1-4.3 3-6.5Z"
+                  stroke="currentColor"
                   strokeWidth="1.2"
                 />
-                <circle cx="8" cy="7" r="1.5" fill="#111213" />
               </svg>
-              United States
-              <Chevron color="#808791" />
+              <Chevron color="currentColor" />
             </button>
-            <button type="button" aria-label="Search" className="grid size-8 place-items-center rounded hover:bg-black/[0.03]">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
-                <circle cx="7" cy="7" r="5" stroke="#156B54" strokeWidth="1.4" />
-                <path d="M11 11l3 3" stroke="#156B54" strokeWidth="1.4" strokeLinecap="round" />
-              </svg>
-            </button>
+
+            <a
+              href="#contact"
+              onClick={() => setOpenId(null)}
+              className={`inline-flex h-10 items-center rounded px-4 text-[14px] font-medium transition-colors ${
+                overHero
+                  ? "bg-white text-[#111213] hover:bg-white/90"
+                  : "bg-[#111213] text-white hover:bg-black"
+              }`}
+            >
+              Contact Us
+            </a>
           </div>
         </div>
 
-        {/* Mega menu panel */}
         <div
           id={panelId}
           role="dialog"
           aria-label={active?.label ?? "Menu"}
           hidden={!active}
-          className={`mega-menu mx-auto mt-2 w-full max-w-[1841px] overflow-hidden rounded-[12px] bg-white shadow-[0_16px_48px_rgba(0,0,0,0.14)] transition-[opacity,transform] duration-200 ${
+          className={`mega-menu mx-auto w-full max-w-[1440px] overflow-hidden border-t border-[#e8eaed] bg-white px-[clamp(20px,6vw,120px)] shadow-[0_16px_40px_rgba(0,0,0,0.12)] transition-[opacity,transform] duration-200 ${
             active ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-1 opacity-0"
           }`}
         >
           {active && (
-            <div className="grid gap-0 lg:grid-cols-[1.15fr_1fr_0.9fr]">
+            <div
+              className={`grid gap-0 py-2 ${
+                active.columns.length > 1 ? "lg:grid-cols-2" : "lg:grid-cols-1"
+              }`}
+            >
               {active.columns.map((col) => (
-                <div key={col.title} className="border-b border-[#e8eaed] p-8 lg:border-b-0 lg:border-r">
+                <div key={col.title} className="border-b border-[#e8eaed] py-7 lg:border-b-0 lg:border-r lg:pr-10 lg:last:border-r-0 lg:last:pr-0 lg:[&:not(:first-child)]:pl-10">
                   <p className="mb-4 text-[12px] font-bold uppercase tracking-[1.2px] text-[#156B54]">
                     {col.title}
                   </p>
                   <ul className="space-y-1">
                     {col.links.map((link) => (
                       <li key={link.label}>
-                        <a
-                          href={link.href}
-                          onClick={() => setOpenId(null)}
-                          className={`block rounded-lg px-3 py-2.5 transition-colors hover:bg-[#f4f6f5] ${
-                            link.desc ? "hover:bg-[#f4f6f5]" : ""
-                          }`}
-                        >
-                          <span className="text-[15px] font-medium text-[#111213] hover:text-[#156B54]">
+                        {link.to ? (
+                          <Link
+                            to={link.to}
+                            onClick={() => setOpenId(null)}
+                            className="block rounded-lg px-3 py-2.5 text-[15px] font-medium text-[#111213] transition-colors hover:bg-[#f4f6f5] hover:text-[#156B54]"
+                          >
                             {link.label}
-                          </span>
-                          {link.desc && (
-                            <span className="mt-0.5 block text-[13px] leading-snug text-[#5b636d]">
-                              {link.desc}
-                            </span>
-                          )}
-                        </a>
+                          </Link>
+                        ) : (
+                          <a
+                            href={link.href ?? "#"}
+                            onClick={() => setOpenId(null)}
+                            className="block rounded-lg px-3 py-2.5 text-[15px] font-medium text-[#111213] transition-colors hover:bg-[#f4f6f5] hover:text-[#156B54]"
+                          >
+                            {link.label}
+                          </a>
+                        )}
                       </li>
                     ))}
                   </ul>
                 </div>
               ))}
-
-              {active.promo && (
-                <div className="bg-[#f7f8f9] p-8">
-                  <p className="mb-3 text-[12px] font-bold uppercase tracking-[1.2px] text-[#156B54]">
-                    {active.promo.eyebrow}
-                  </p>
-                  <a
-                    href={active.promo.href}
-                    onClick={() => setOpenId(null)}
-                    className="block text-[20px] font-semibold leading-snug tracking-[-0.3px] text-[#111213] hover:text-[#156B54]"
-                  >
-                    {active.promo.title}
-                  </a>
-                  {active.promo.links && (
-                    <ul className="mt-6 space-y-3">
-                      {active.promo.links.map((link) => (
-                        <li key={link.label}>
-                          <a
-                            href={link.href}
-                            onClick={() => setOpenId(null)}
-                            className="inline-flex items-center gap-1 text-[14px] font-medium text-[#156B54] hover:underline"
-                          >
-                            {link.label}
-                            <span aria-hidden>»</span>
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-              )}
             </div>
           )}
         </div>

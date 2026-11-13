@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { asset } from "../lib/asset";
+import { solutionPath, type SolutionSlug } from "../data/solutions";
 
 const CARD_W = 234;
 const CARD_H = 262;
@@ -7,16 +9,22 @@ const SCALE = 1.5;
 const SHIFT = Math.round(CARD_W * (SCALE - 1)); // 117
 const AUTO_MS = 3000;
 
-const stories = [
-  { id: "sanitation", title: "Sanitation", caption: "Sanitation", img: asset("images/assets/idT4h.png") },
-  { id: "road", title: "Road & Pavement", caption: "Road & Pavement", img: asset("images/assets/XBwUH.png") },
-  { id: "worksite", title: "Work Site", caption: "Work Site", img: asset("images/assets/PzT4e.png") },
-  { id: "roadside", title: "Roadside Facility", caption: "Roadside Facility", img: asset("images/assets/BtbM3.png") },
-  { id: "urban", title: "Urban Environment", caption: "Urban Environment", img: asset("images/assets/KiNnI.png") },
-] as const;
+const stories: {
+  id: string;
+  slug: SolutionSlug;
+  title: string;
+  caption: string;
+  img: string;
+}[] = [
+  { id: "road", slug: "road-pavement", title: "Road & Pavement", caption: "Road & Pavement", img: asset("images/assets/XBwUH.png") },
+  { id: "roadside", slug: "roadside-facility", title: "Roadside Facility", caption: "Roadside Facility", img: asset("images/assets/BtbM3.png") },
+  { id: "city", slug: "city-environment", title: "City & Environment", caption: "City & Environment", img: asset("images/assets/KiNnI.png") },
+  { id: "worksite", slug: "work-site-safety", title: "Work Site Safety", caption: "Work Site Safety", img: asset("images/assets/PzT4e.png") },
+];
 
 /** Frame 1 · bzVWX — Trimble-style scale carousel, 3s autoplay */
 export function Stories() {
+  const navigate = useNavigate();
   const [activeIndex, setActiveIndex] = useState(2);
   const [paused, setPaused] = useState(false);
   const pausedRef = useRef(false);
@@ -83,7 +91,13 @@ export function Stories() {
                   aria-pressed={isActive}
                   onMouseEnter={() => select(index)}
                   onFocus={() => select(index)}
-                  onClick={() => select(index)}
+                  onClick={() => {
+                    if (isActive) {
+                      navigate(solutionPath(story.slug));
+                      return;
+                    }
+                    select(index);
+                  }}
                   className={`story-card relative block overflow-hidden rounded text-left outline-none focus-visible:ring-2 focus-visible:ring-black max-md:!h-auto max-md:!w-full max-md:!scale-100 max-md:!transform-none ${
                     isActive ? "is-active" : ""
                   }`}
