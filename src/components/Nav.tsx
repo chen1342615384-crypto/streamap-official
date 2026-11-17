@@ -2,6 +2,8 @@ import { useEffect, useId, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { asset } from "../lib/asset";
 import { solutionPath } from "../data/solutions";
+import { productMenu, productPath } from "../data/products";
+import { companyMenu, companyPath } from "../data/company";
 
 type MegaLink = { label: string; href?: string; to?: string };
 type MegaColumn = { title: string; links: MegaLink[] };
@@ -42,18 +44,30 @@ const menus: MegaPanel[] = [
     columns: [
       {
         title: "Devices",
-        links: [
-          { label: "P4 Set", href: "#products" },
-          { label: "C40P Set", href: "#products" },
-          { label: "P2 Set", href: "#products" },
-        ],
+        links: productMenu.devices.map((item) => ({
+          label: item.label,
+          to: productPath(item.slug),
+        })),
       },
       {
         title: "Platforms",
-        links: [
-          { label: "Pixel Platform", href: "#products" },
-          { label: "Asset Management Platform", href: "#products" },
-        ],
+        links: productMenu.platforms.map((item) => ({
+          label: item.label,
+          to: productPath(item.slug),
+        })),
+      },
+    ],
+  },
+  {
+    id: "company",
+    label: "Company info",
+    columns: [
+      {
+        title: "Company",
+        links: companyMenu.map((item) => ({
+          label: item.label,
+          to: companyPath(item.slug),
+        })),
       },
     ],
   },
@@ -87,7 +101,11 @@ export function Nav() {
   const panelId = useId();
   const location = useLocation();
 
-  const solid = scrolled || Boolean(openId);
+  // News detail has a light top (no dark hero) — keep nav solid/readable
+  const lightTop =
+    /^\/company\/news\/.+/.test(location.pathname) ||
+    location.pathname === "/company/news/";
+  const solid = scrolled || Boolean(openId) || lightTop;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -193,14 +211,6 @@ export function Nav() {
                 </button>
               );
             })}
-
-            <a
-              href="#about"
-              onClick={() => setOpenId(null)}
-              className={`inline-flex h-11 items-center rounded px-4 text-[15px] font-medium tracking-[-0.3px] transition-colors ${hoverBg}`}
-            >
-              About
-            </a>
           </nav>
 
           <div className={`ml-auto flex items-center gap-2 ${textClass}`}>
@@ -220,8 +230,8 @@ export function Nav() {
               <Chevron color="currentColor" />
             </button>
 
-            <a
-              href="#contact"
+            <Link
+              to={companyPath("contact-us")}
               onClick={() => setOpenId(null)}
               className={`inline-flex h-10 items-center rounded px-4 text-[14px] font-medium transition-colors ${
                 overHero
@@ -230,7 +240,7 @@ export function Nav() {
               }`}
             >
               Contact Us
-            </a>
+            </Link>
           </div>
         </div>
 

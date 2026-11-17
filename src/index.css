@@ -298,3 +298,229 @@
     animation: none;
   }
 }
+
+/* Road assessment demo map markers */
+.roadmap-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(251, 173, 38, 0.55) 0%, rgba(251, 173, 38, 0.18) 45%, transparent 70%);
+  box-shadow: 0 0 18px rgba(251, 173, 38, 0.45);
+  animation: roadmap-pulse 2.4s ease-out infinite;
+  pointer-events: none;
+}
+
+.roadmap-glow.is-active {
+  width: 64px;
+  height: 64px;
+  background: radial-gradient(circle, rgba(251, 173, 38, 0.7) 0%, rgba(251, 173, 38, 0.22) 48%, transparent 72%);
+  box-shadow: 0 0 28px rgba(251, 173, 38, 0.65);
+}
+
+.roadmap-dot {
+  position: relative;
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: #fbad26;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 3px rgba(251, 173, 38, 0.28), 0 2px 8px rgba(0, 0, 0, 0.25);
+  transition: transform 200ms ease;
+}
+
+.roadmap-dot.is-active {
+  transform: scale(1.25);
+  background: #ffb84d;
+}
+
+@keyframes roadmap-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.85);
+    opacity: 0.9;
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1.25);
+    opacity: 0.25;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.4);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roadmap-glow {
+    animation: none;
+  }
+}
+
+/* News cards — multi-layer shadow from Pencil */
+.news-card {
+  box-shadow:
+    0 1.5px 1.5px rgba(0, 0, 0, 0.12),
+    0 2px 5px rgba(0, 0, 0, 0.06),
+    0 4px 8px rgba(0, 0, 0, 0.06),
+    0 4px 14px rgba(0, 0, 0, 0.04),
+    0 8px 20px rgba(0, 0, 0, 0.04);
+}
+
+.news-sort-menu {
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.08),
+    0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* About timeline — design-size cards; scale down only on short viewports */
+.about-timeline__shell {
+  padding-top: 88px;
+  padding-bottom: 24px;
+  box-sizing: border-box;
+}
+
+.about-timeline__header {
+  padding-inline: clamp(20px, 6.25vw, 120px);
+}
+
+.about-timeline__stage {
+  margin-top: 28px;
+  padding-bottom: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center; /* center cards when shorter than stage (27") */
+}
+
+.about-timeline__track {
+  padding-left: clamp(20px, 6.25vw, 120px);
+  padding-right: 0;
+}
+
+.about-timeline__title {
+  font-size: clamp(32px, 3.4vw, 56px);
+}
+
+.about-timeline__desc {
+  font-size: clamp(15px, 1.3vw, 22px);
+}
+
+.about-timeline__card {
+  width: min(var(--timeline-card-w, 640px), 85vw);
+  height: calc(var(--timeline-img-h, 480px) + var(--timeline-copy-h, 150px));
+}
+
+.about-timeline__card-title {
+  font-size: calc(32px * var(--timeline-scale, 1));
+}
+
+.about-timeline__card-body {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  font-size: calc(16px * max(0.9, var(--timeline-scale, 1)));
+}
+
+.about-timeline__copy {
+  height: var(--timeline-copy-h, 180px);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.about-timeline.is-measuring .about-timeline__copy {
+  height: auto !important;
+  overflow: visible;
+}
+
+.about-timeline.is-measuring .about-timeline__card {
+  height: auto;
+}
+
+.about-timeline__media {
+  height: var(--timeline-img-h, 480px);
+  flex: none;
+}
+
+.about-timeline__img {
+  height: 100%;
+}
+
+.about-timeline__spacer {
+  width: 16px;
+}
+
+@media (max-height: 900px) {
+  .about-timeline__title {
+    margin-top: 0.5rem;
+  }
+
+  .about-timeline__desc {
+    margin-top: 0.5rem;
+  }
+
+  .about-timeline__stage {
+    margin-top: 18px;
+  }
+}
+
+@media (max-height: 800px) {
+  .about-timeline__desc {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+  }
+
+  .about-timeline__shell {
+    padding-top: 72px;
+    padding-bottom: 16px;
+  }
+}
+
+@media (max-width: 767px) {
+  .about-timeline__shell {
+    padding-top: 4rem;
+    padding-bottom: 0;
+  }
+
+  .about-timeline__stage {
+    margin-top: 0;
+    overflow: visible;
+    display: block;
+  }
+
+  .about-timeline__track {
+    padding-inline: clamp(20px, 6.25vw, 120px);
+  }
+
+  .about-timeline__card {
+    width: min(640px, 85vw);
+    height: auto;
+  }
+
+  .about-timeline__media {
+    height: auto;
+  }
+
+  .about-timeline__img {
+    height: auto;
+  }
+
+  .about-timeline__copy {
+    height: auto;
+    overflow: visible;
+  }
+
+  .about-timeline__card-title {
+    font-size: 24px;
+  }
+
+  .about-timeline__card-body {
+    -webkit-line-clamp: unset;
+    display: block;
+    font-size: 16px;
+  }
+}

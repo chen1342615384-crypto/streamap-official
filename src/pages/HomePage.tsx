@@ -3,7 +3,7 @@ import { Nav } from "../components/Nav";
 import { Hero } from "../components/Hero";
 import { Stats } from "../components/Stats";
 import { Stories } from "../components/Stories";
-import { Software } from "../components/Software";
+import { RoadMapDemo } from "../components/RoadMapDemo";
 import { News } from "../components/News";
 import { Contact } from "../components/Contact";
 import { Footer } from "../components/Footer";
@@ -50,7 +50,7 @@ export function HomePage() {
           <Stories />
         </div>
         <div data-reveal>
-          <Software />
+          <RoadMapDemo />
         </div>
         <div data-reveal>
           <News />
