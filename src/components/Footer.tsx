@@ -109,21 +109,12 @@ export function Footer() {
                 <ul className="space-y-2">
                   {col.links.map((link) => (
                     <li key={`${col.title}-${link.label}`}>
-                      {"to" in link && link.to ? (
-                        <Link
-                          to={link.to}
-                          className="text-[15px] tracking-[-0.6px] text-[#474c53] hover:text-[#111213]"
-                        >
-                          {link.label}
-                        </Link>
-                      ) : (
-                        <a
-                          href={"href" in link ? link.href : "#"}
-                          className="text-[15px] tracking-[-0.6px] text-[#474c53] hover:text-[#111213]"
-                        >
-                          {link.label}
-                        </a>
-                      )}
+                      <Link
+                        to={link.to}
+                        className="text-[15px] tracking-[-0.6px] text-[#474c53] hover:text-[#111213]"
+                      >
+                        {link.label}
+                      </Link>
                     </li>
                   ))}
                 </ul>
